@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // TimePickerDialogを表示して選択結果をtextHourとtextminuteに表示する
     private void showTimePickerDialog() {
+        // ２回目以降のTimePickerDialog表示時に初期値が固定だと違和感があるので、画面の値を
+        // 初期値としてセットするために使う変数
         int hour = Integer.parseInt(mTextHour.getText().toString());
         int minute = Integer.parseInt(mTextMinute.getText().toString());
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         }
                     }
                 },
-                hour,
+                hour,       // 初期値（時）と（分）は画面のものをセット
                 minute,
                 true
         );
@@ -82,10 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // else ・・・「こんばんは」
     // 今回は、TextViewにTimePickerDialogからしかセットされないので、数値以外が入ることは考慮しない
     private void showAisatsu() {
+        // 時間を分に変換する
         int hour = Integer.parseInt(mTextHour.getText().toString());
         int minute = Integer.parseInt(mTextMinute.getText().toString());
         int totalmin = (60 * hour) + minute;
 
+        // 分の値を元に表示内容を判定する（判定基準は上記参照）
         if (totalmin >= 1080) {
             mTextAisatsu.setText("こんばんは");
         } else if (totalmin >= 600) {
